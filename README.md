@@ -17,3 +17,13 @@ Tomando los datos de los pacientes recolectados en el proyecto https://github.co
 1. Clona este repositorio.
    ```bash
    git clone https://github.com/usuario/presion_arterial_visualizacion.git
+
+## Imagenes
+
+![1](screenshots/1.png)
+
+![2](screenshots/2.png)
+
+![3](screenshots/3.png)
+
+![4](screenshots/4.png)
