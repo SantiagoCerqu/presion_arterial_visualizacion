@@ -37,14 +37,16 @@ if medical_records_df.empty:
 
 
 # Medical DATA
-last_record = medical_records_df.shape[0] - 1
-last_systolic_rate = medical_records_df.loc[last_record, "systolic_pressure"]
-last_diastolic_rate = medical_records_df.loc[last_record, "diastolic_pressure"]
-last_heart_rate = medical_records_df.loc[last_record, "heart_rate"]
-last_saturation = medical_records_df.loc[last_record, "saturation"]
-last_record_date = medical_records_df.loc[last_record, "event_date"]
+# Calc Last_record index
+last_index = medical_records_df.shape[0] - 1
+last_record = medical_records_df.loc[last_index]
+last_systolic_rate = last_record["systolic_pressure"]
+last_diastolic_rate = last_record["diastolic_pressure"]
+last_heart_rate = last_record["heart_rate"]
+last_saturation = last_record["saturation"]
+last_record_date = last_record["event_date"]
 
-last_diagnostic = general_pressure_color(last_diastolic_rate,last_diastolic_rate)[1]
+last_diagnostic = general_pressure_color(last_systolic_rate,last_diastolic_rate)[1]
 
 
 # page configuration
@@ -136,7 +138,6 @@ st.header(f"Consolidado de medición año 2024")
 tab1, tab2, tab3, tab4 = st.tabs(["P. Sistolica", "P. Diastolica", "Pulsaciones", "Saturacion"])
 
 systolic_chart = plot_line_data(medical_records_df, "event_date", "systolic_pressure", "presion sistolica")
-systolic_chart = plot_line_data(medical_records_df, "event_date", "systolic_pressure", "presion sistolica")
 diastolic_chart = plot_line_data(medical_records_df, "event_date", "diastolic_pressure", "presion diastolica")
 heart_rate_chart = plot_line_data(medical_records_df, "event_date", "heart_rate", "pulsaciones")
 saturation_chart = plot_line_data(medical_records_df, "event_date", "saturation", "saturacion")
@@ -198,4 +199,7 @@ with tab4:
 # * Display tables
 st.header("Tabla registros año 2024")
 # st.dataframe(user_info_df)
-st.dataframe(medical_records_df, use_container_width=True)
+st.dataframe(
+    # Drop columns
+    medical_records_df.drop(["id","user_id"], axis=1).sort_values(by="event_date", ascending=False),
+    use_container_width=True)

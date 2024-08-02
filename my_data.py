@@ -29,7 +29,8 @@ query_2 = f"""
 
 # Get medical record for especific user and create a DataFrame with the data
 def get_user_medical_records(user_id):
-    query = query_1 + f"{user_id};"
+    # Query the data base Order by event_date column
+    query = query_1 + f"{user_id} ORDER BY event_date;"
     return pd.read_sql_query(query, engine)
 
 def get_user_information(user_id):
